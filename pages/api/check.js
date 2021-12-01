@@ -1,5 +1,6 @@
 
-const  puppeteer = require('puppeteer');
+const    chrome = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core');
 let finalResult
 
 const handler = async (req, res) => {
@@ -7,8 +8,15 @@ const handler = async (req, res) => {
   const number = "eeb72z"
   const url ='https://my.service.nsw.gov.au/MyServiceNSW/index#/rms/freeRegoCheck/details';
   try{
-   const browser = await puppeteer.launch({ headless:true});
-   const page = await browser.newPage();
+   const browser = await puppeteer.launch({
+    args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+    defaultViewport: chrome.defaultViewport,
+    executablePath: await chrome.executablePath,
+    headless: true,
+    ignoreHTTPSErrors: true,
+  });
+  
+  const page = await browser.newPage();
 
    
    await page.goto(url);
