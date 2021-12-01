@@ -1,4 +1,4 @@
-const chrome = require("chrome-aws-lambda");
+const  chromium= require("chrome-aws-lambda");
 const puppeteer = require("puppeteer-core");
 
 const handler = async (req, res) => {
@@ -10,12 +10,11 @@ const handler = async (req, res) => {
   try {
     
     //change process.env.CHROME_EXECUTABLE_PATH to your chrome executablePath to run locally. go to chrome address bar and type chrome://version
-    const browser = await puppeteer.launch({
-      args: chrome.args,
-      executablePath:
-        process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
-      headless: true,
-    });
+     const browser = await puppeteer.launch({
+    args: chromium.args,
+    executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
+    headless: true,
+  });
 
     const page = await browser.newPage();
 
