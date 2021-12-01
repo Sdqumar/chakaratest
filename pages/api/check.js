@@ -15,8 +15,7 @@ if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
 const handler = async (req, res) => {
   // const { number } = req.query;
   const number = "eeb72z"
-  // const url ='https://my.service.nsw.gov.au/MyServiceNSW/index#/rms/freeRegoCheck/details';
-const url='http://nairaland.com/'
+  const url ='https://my.service.nsw.gov.au/MyServiceNSW/index#/rms/freeRegoCheck/details';
   let browser;
   let finalResult = '';
   try {
@@ -35,13 +34,27 @@ const url='http://nairaland.com/'
     const page = await browser.newPage();
 
     await page.goto(url);
- 
+    await page.waitForSelector('#formly_2_input_plateNumber_0');
+    await page.type('#formly_2_input_plateNumber_0', number);
+    await page.click(
+      '#formly_2_checkbox-label-with-action_termsAndConditions_1'
+    );
     page.on('response', async (response) => {
       response.text().then(function (textBody) {
-            finalResult = textBody;
+        if (textBody.startsWith('[')) {
+          const json = JSON.parse(textBody);
+          const body = json[0];
+          if (body.method == 'postVehicleListForFreeRegoCheck') {
+            finalResult = body.result;
             browser.close();
-      })
-    })
+          }
+        }
+      });
+    });
+    await Promise.all([
+      page.click('button[type="submit"]'),
+      page.waitForNavigation({ waitUntil: 'networkidle0' }),
+    ]);
 
     // console.log('doneee');
     if (finalResult) {
