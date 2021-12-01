@@ -1,6 +1,5 @@
 
-const    chrome = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core');
+import puppeteer from 'puppeteer-serverless'
 let finalResult
 
 const handler = async (req, res) => {
@@ -8,13 +7,7 @@ const handler = async (req, res) => {
   const number = "eeb72z"
   const url ='https://my.service.nsw.gov.au/MyServiceNSW/index#/rms/freeRegoCheck/details';
   try{
-   const browser = await puppeteer.launch({
-    args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
-    defaultViewport: chrome.defaultViewport,
-    executablePath: await chrome.executablePath,
-    headless: true,
-    ignoreHTTPSErrors: true,
-  });
+    const browser = await puppeteer.launch()
   
   const page = await browser.newPage();
 
