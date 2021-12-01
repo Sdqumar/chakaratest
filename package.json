@@ -1,22 +1,20 @@
 {
-	"name": "chakaratest",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
-	},
-	"dependencies": {
-		"@material-ui/core": "^4.12.3",
-		"framer-motion": "^4.1.17",
-		"next": "11.1.2",
-		"react": "17.0.2",
-		"react-dom": "17.0.2"
-	},
-	"devDependencies": {
-		"eslint": "7.32.0",
-		"eslint-config-next": "11.1.2"
-	}
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/pickers": "^3.3.10",
+    "axios": "^0.24.0",
+    "chrome-aws-lambda": "^10.1.0",
+    "next": "^11.1.2",
+    "puppeteer": "^12.0.1",
+    "puppeteer-core": "^12.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }
