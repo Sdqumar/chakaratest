@@ -11,12 +11,10 @@ const handler = async (req, res) => {
     
     //change process.env.CHROME_EXECUTABLE_PATH to your chrome executablePath to run locally. go to chrome address bar and type chrome://version
     const browser = await puppeteer.launch({
-      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-      defaultViewport: chrome.defaultViewport,
+      args: chrome.args,
       executablePath:
-        process.env.CHROME_EXECUTABLE_PATH || (await chromium.executablePath),
+        process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
       headless: true,
-      ignoreHTTPSErrors: true,
     });
 
     const page = await browser.newPage();
